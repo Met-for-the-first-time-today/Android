@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PreHelper</string>
+    <string name="app_title">PreHelper</string>
+    <string name="edit">편집</string>
+    <string name="finish">완료</string>
+    <string name="delete">삭제</string>
+</resources>
