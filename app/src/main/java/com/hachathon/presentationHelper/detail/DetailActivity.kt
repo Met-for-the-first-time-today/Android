@@ -66,7 +66,7 @@ class DetailActivity : AppCompatActivity() {
             val mIntent = Intent(this, EditActivity::class.java)
             mIntent.putExtra("index", index)
             mIntent.putExtra("title", binding.detailTitleTv.text.toString())
-            mIntent.putExtra("script", binding.detailScript.text.toString())
+            mIntent.putExtra("script", binding.detailScriptBody.text.toString())
             startActivity(mIntent)
         }
 
@@ -99,8 +99,7 @@ class DetailActivity : AppCompatActivity() {
                     outputFile.delete()
                     convertTextToAudio(
                         binding.detailScriptBody.text.toString(),
-                        this@DetailActivity,
-                        true
+                        this@DetailActivity
                     )
                 }
                 // 스피너에서 선택이 변경되면 자동으로 재생 중지
@@ -117,14 +116,13 @@ class DetailActivity : AppCompatActivity() {
         }
 
         binding.speedSpinner.setSelection(1)
+        detailAPI(index)
     }
 
     override fun onResume() {
         super.onResume()
-        Log.e("TEST","눌렸다1")
         detailAPI(index)
 
-        Log.e("TEST","눌렸다2")
         binding.detailPlayBtn.setOnClickListener {
             if (binding.detailPlayBtn.isClickable && isInit) {
                 if (!isPlay) {
@@ -176,7 +174,7 @@ class DetailActivity : AppCompatActivity() {
         textToSpeech.shutdown()
     }
 
-    private fun convertTextToAudio(script: String, context: Context, isRetry:Boolean) {
+    private fun convertTextToAudio(script: String, context: Context) {
         // 오디오 파일 저장 경로 및 이름 설정
         outputFile = File(
             Environment.getExternalStorageDirectory(),
@@ -255,8 +253,7 @@ class DetailActivity : AppCompatActivity() {
                                         textToSpeech.language = locale
                                         convertTextToAudio(
                                             binding.detailScriptBody.text.toString(),
-                                            this@DetailActivity,
-                                            false
+                                            this@DetailActivity
                                         )
                                     }
                                 }
